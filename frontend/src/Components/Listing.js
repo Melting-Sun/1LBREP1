@@ -94,6 +94,8 @@ useEffect(() => {
   }
 }, [])
 
+
+
 if(dataIsLoading === false){
   console.log(allListings[0].location)
 }
