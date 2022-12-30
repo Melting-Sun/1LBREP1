@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from 'react'
 import Axios from 'axios'
-
+import { useImmerReducer } from 'use-immer'
 
 
 
@@ -9,8 +9,8 @@ import { MapContainer, TileLayer, useMap , Marker, Popup, Polyline, polygonOne, 
 import { Icon } from 'leaflet'
 
 // MUI
-import { Grid, AppBar, Typography, Button, Card, CardHeader, CardMedia, CardContent, CircularProgress } from "@mui/material";
-
+import { Grid, AppBar, Typography, Button, Card, CardHeader, CardMedia, CardContent, CircularProgress, IconButton, CardActions } from "@mui/material";
+import RoomIcon from '@mui/icons-material/Room';
 
 //Map Icons
 import HouseIconPng from './Assets/Mapicons/house.png'
@@ -45,6 +45,42 @@ const officeIcon = new Icon({
 
 const[latitude, setLatitude] = useState(29.5926)
 const[longitude, setLongitude] = useState(52.5836)
+
+
+
+
+
+
+const initialState = {
+
+  mapInstance: null,
+
+}
+
+function ReducerFunction(draft, action){
+  switch(action.type){
+
+      case 'getMap':
+          draft.mapInstance = action.mapData
+          break    
+
+
+  }
+}
+
+const [state, dispatch] = useImmerReducer(ReducerFunction, initialState)
+
+
+
+function TheMapComponent(){
+  const map = useMap()
+  dispatch({ type: 'getMap',  mapData: map})
+   return null
+}
+
+
+
+
 
 
 function GoEast(){
@@ -118,11 +154,11 @@ if(dataIsLoading === true){
           <Card key={listing.id} style={{ margin: '0.5rem', border: '1px solid black', position: 'relative'}}>
       <CardHeader
         
-       // action={
-         // <IconButton aria-label="settings">
-           // <MoreVertIcon />
-          //</IconButton>
-        //}
+       action={
+         <IconButton aria-label="settings" onClick={()=>state.mapInstance.flyTo([listing.latitude, listing.longitude], 16)}>
+           <RoomIcon />
+          </IconButton>
+        }
         title={listing.title}
        
       />
@@ -143,15 +179,13 @@ if(dataIsLoading === true){
        :(<Typography style={{position: 'absolute', backgroundColor: '#fed000', zIndex: '1000', color: 'white', top: '100px', left: '20px', padding: '5px'}}> {listing.listing_type}:  ${listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} / {listing.rental_frequency} </Typography>)}
 
       
-     {/* <CardActions disableSpacing>
+     <CardActions disableSpacing>
        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          {listing.seller_username}
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+      
         
-      </CardActions>*/}
+      </CardActions>
       
     </Card>
         )
@@ -165,6 +199,9 @@ if(dataIsLoading === true){
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
+            <TheMapComponent/>
+
 
             <Polyline positions={polyOne} weight={10} color='#fed000'/>
             <Polygon positions={polygonOne} />
@@ -185,8 +222,8 @@ if(dataIsLoading === true){
               key={listing.id}
               icon={IconDisplay()}
               position={[
-                listing.location.coordinates[0],
-                listing.location.coordinates[1],
+                listing.latitude,
+                listing.longitude,
               ]}>
                 
                 <Popup>
