@@ -20,29 +20,18 @@ in my application and i have used postgresql
 Main Files
 
 Files information
-
 the backend folder contains the backend setting of our project
-
 the listing app contains the models for the listing of the properties
-
-
-
-
 the components are cosist of 
-
 app component which the main component of our app
-
 add property component which adds property through a form submit
-
 heder which contains the header part of our app
-
 home which is the homepage body
-
 listing which shows the properties on the map and the listing of the properties
-
 login which is the for the login page
-
 register which is for the sign up page
+
+
 
 
 
