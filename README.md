@@ -27,7 +27,7 @@ and see the detals and listing of all properties that has been added to the map 
 
 
 
-Main Files
+What’s contained in each file you created.
 
 Files information-
 the backend folder contains the backend setting of our project-
@@ -43,9 +43,12 @@ register which is for the sign up page-
 
 
 
+Any other additional information the staff should know about your project.
+nothing left
 
 
-How to run the application
+
+How to run your application.
 
 Install project dependencies by running pip install -r requirements.txt
 
