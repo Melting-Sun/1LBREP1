@@ -17,6 +17,9 @@ Main Idea
 
 i have created a location based real estate application where you can add your property on the map
 and see the detals and listing of all properties that has been added to the map by all users
+there are all kind of real estate apps out there but my app is diffrent because it allows 
+the users to serach on the map and the that the user want and the user can easily scroll 
+through list of properties and locate them on map with one click
 
 
 
